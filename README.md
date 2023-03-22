@@ -1,3 +1,7 @@
+# ABONELIK SİSTEMİ
+
+İçerisinde basit bir authorization ve abonelik sistemi olan bir uygulama. Abonelikler her gün saat gece 01.00'da kontrol edilir. Eğer abonelik tarihi dolduysa yeni bir sipariş oluşturulur.
+
 # Kurulum:
 
 - `npm install` ile node modüllerini indirin.
@@ -17,7 +21,8 @@
 
 # Eklenebilecek özellikler:
 
-- Şuanda tek bir abonelik türü ve fiyatlandırma mevcut. Eğer birden fazla ödeme planı ve abonelik türü eklenmek isterse şunları yapardım:
-  1- "SUBSCRIPTION_TYPES" adında bir tablo oluşturup içerisine "price", "name", "duration" gibi özellikler atardım.
+- Refresh token middleware
 
-  2- Subscription'u SUBSCRIPTION_TYPES tablosuna 1-1 olarak bağlardım ve ödeme dönemini hesaplamak istediğimde veya kullanıcıdan alınacak ücreti hesaplamaya ihtiyaç duyulduğu zaman bu bilgileri kullanırdım.
+- Payment API (Stripe vb)
+
+- Birden fazla abonelik türü ve fiyatlandırması

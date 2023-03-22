@@ -1,0 +1,13 @@
+export declare const NO_MATCH = "No match";
+export declare const ACTION_FAILED = "Action failed";
+export declare const CREATE_FAILED = "Create function failed";
+export declare const UNAUTHORIZED = "Unauthorized";
+export declare const UPDATE_FAILED = "Update function failed";
+export declare const UNIQUE_FAILED = "Create failed, already exist";
+export declare const DELETE_FAILED = "Deletion failed";
+export declare const INVALID_CREDENTIAL = "Invalid credentials";
+export declare const ALREADY_EXISTS = "Already exists";
+export declare const IMPOSSIBLE_ACTION = "Action impossible";
+export declare const SERVER_ERROR = "Server error";
+export declare const SUBSCRIPTION_PRICE = 25.99;
+export declare const SUBSCRIPTION_DURATION = 30;

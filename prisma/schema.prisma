@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int           @id @default(autoincrement())
+  email        String        @unique
+  password     String
+  firstName    String?
+  lastName     String?
+  address      Address[]
+  subscription Subscription?
+  refreshToken String        @default("")
+  orders       Order[]
+  createdAt    DateTime      @default(now())
+  lastLogin    DateTime      @default(now())
+}
+
+enum AddressType {
+  PRIMARY
+  OTHER
+}
+
+model Address {
+  id          Int         @id @default(autoincrement())
+  street      String
+  city        String
+  state       String
+  zip         String
+  description String
+  country     String
+  type        AddressType
+  user        User        @relation(fields: [userId], references: [id])
+  userId      Int
+  orders      Order[]
+
+  @@unique([userId, id])
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  WAITING_FOR_PAYMENT
+  CANCELLED
+}
+
+model Subscription {
+  id          Int                @id @default(autoincrement())
+  price       Float
+  user        User               @relation(fields: [userId], references: [id])
+  userId      Int                @unique
+  createdAt   DateTime           @default(now())
+  status      SubscriptionStatus @default(WAITING_FOR_PAYMENT)
+  order       Order[]
+  lastRenewal DateTime?
+  nextRenewal DateTime
+
+  @@unique([userId, id])
+}
+
+enum OrderStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+}
+
+model Order {
+  id             Int          @id @default(autoincrement())
+  orderTotal     Float?
+  user           User         @relation(fields: [userId], references: [id])
+  userId         Int
+  status         OrderStatus  @default(PENDING)
+  address        Address      @relation(fields: [addressId], references: [id])
+  addressId      Int
+  orderItem      Subscription @relation(fields: [subscriptionId], references: [id])
+  subscriptionId Int
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @default(now()) @updatedAt
+
+  @@unique([userId, id])
+  @@unique([userId, id, status])
+}
